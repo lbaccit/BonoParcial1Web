@@ -1,0 +1,13 @@
+services:
+  web:
+    image: lbaccit/lbaccitbookstoreweb:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_DOCKER_API_URL=http://api:8080/api
+    depends_on:
+      - api
+  api:
+    image: lbaccit/lbaccitbookstoreapi:latest
+    ports:
+      - "8080:8080"
