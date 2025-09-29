@@ -1,13 +1,21 @@
+version: "3.9"
+
 services:
+  api:
+    image: lbaccit/lbaccitbookstoreapi:latest
+    container_name: api
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
   web:
     image: lbaccit/lbaccitbookstoreweb:latest
+    container_name: web
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_DOCKER_API_URL=http://api:8080/api
+      - NEXT_PUBLIC_DOCKER_API_URL=http://127.0.0.1:8080/api
+      - NODE_ENV=production
     depends_on:
       - api
-  api:
-    image: lbaccit/lbaccitbookstoreapi:latest
-    ports:
-      - "8080:8080"
+    restart: unless-stopped
